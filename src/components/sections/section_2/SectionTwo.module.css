@@ -1,0 +1,47 @@
+.section {
+	overflow: hidden;
+	padding: 22px 0;
+	background: #a6cbfb;
+}
+
+.marquee {
+	display: flex;
+	width: 100%;
+	overflow: hidden;
+}
+
+.track {
+	display: flex;
+	flex: 0 0 auto;
+	align-items: center;
+	gap: 56px;
+	min-width: max-content;
+	animation: marquee 18s linear infinite;
+}
+
+.item {
+	display: inline-flex;
+	align-items: center;
+	gap: 18px;
+	color: #031126;
+	font-family: var(--heading);
+	font-size: 34px;
+	font-weight: 700;
+	line-height: 1;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+.arrow {
+	font-size: 40px;
+}
+
+@keyframes marquee {
+	from {
+		transform: translateX(-100%);
+	}
+
+	to {
+		transform: translateX(0);
+	}
+}
