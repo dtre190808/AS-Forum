@@ -24,6 +24,15 @@
 body {
   margin: 0;
   line-height: normal;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 h1,

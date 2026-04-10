@@ -45,3 +45,43 @@
 		transform: translateX(0);
 	}
 }
+
+@media (max-width: 900px) {
+	.section {
+		padding: 16px 0;
+	}
+
+	.track {
+		gap: 28px;
+		animation-duration: 14s;
+	}
+
+	.item {
+		gap: 10px;
+		font-size: 22px;
+	}
+
+	.arrow {
+		font-size: 28px;
+	}
+}
+
+@media (max-width: 560px) {
+	.section {
+		padding: 12px 0;
+	}
+
+	.track {
+		gap: 20px;
+		animation-duration: 12s;
+	}
+
+	.item {
+		gap: 8px;
+		font-size: 16px;
+	}
+
+	.arrow {
+		font-size: 20px;
+	}
+}

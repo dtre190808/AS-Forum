@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom"
 import styles from "./SectionOne.module.css"
 
 function SectionOne() {
   return (
-    <section className={styles.section}>
+    <section id="home" className={styles.section}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Встречаемся на <span className={styles.highlight}>Форуме</span></h1>
-        <button className={styles.button}>Зарегистрироваться</button>
+        <h1 className={styles.title}>Встречаемся на <span className={styles.highlight}>Форуме Алабуга Старт</span></h1>
+        <Link to="/register" className={styles.button}>Зарегистрироваться</Link>
       </div>
-      <div className={styles.subtitle}><h2>Международная программа “Алабуга СТАРТ”</h2></div>
+      <div className={styles.subtitle}><h2>Профориентационный форум</h2></div>
       
     </section>
   )
