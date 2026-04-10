@@ -1,0 +1,146 @@
+.section {
+	padding: 112px 0 128px;
+	background:
+		radial-gradient(circle at top left, rgba(166, 203, 251, 0.2), transparent 34%),
+		#031126;
+	overflow: hidden;
+}
+
+.inner {
+	width: min(1280px, calc(100% - 64px));
+	margin: 0 auto;
+}
+
+.title {
+	margin: 0 0 48px;
+	color: #ffffff;
+	font-size: clamp(44px, 5vw, 78px);
+	line-height: 0.95;
+	text-transform: uppercase;
+}
+
+.rows {
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+}
+
+.rowViewport {
+	overflow: hidden;
+}
+
+.track {
+	display: flex;
+	align-items: center;
+	gap: 22px;
+	width: max-content;
+	animation: marqueeLeft 28s linear infinite;
+}
+
+.trackReverse {
+	animation-name: marqueeRight;
+}
+
+.card {
+	display: inline-flex;
+	align-items: center;
+	gap: 22px;
+	min-width: 420px;
+	padding: 20px 28px;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.06);
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	box-sizing: border-box;
+}
+
+.avatar {
+	width: 82px;
+	height: 82px;
+	flex: 0 0 82px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 1px solid rgba(255, 255, 255, 0.28);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.cardTitle {
+	margin: 0;
+	color: #ffffff;
+	font-size: clamp(24px, 2vw, 34px);
+	line-height: 1;
+	text-transform: uppercase;
+}
+
+@keyframes marqueeLeft {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(calc(-33.333% - 14.666px));
+	}
+}
+
+@keyframes marqueeRight {
+	from {
+		transform: translateX(calc(-33.333% - 14.666px));
+	}
+
+	to {
+		transform: translateX(0);
+	}
+}
+
+@media (max-width: 900px) {
+	.section {
+		padding: 88px 0 104px;
+	}
+
+	.inner {
+		width: calc(100% - 32px);
+	}
+
+	.card {
+		min-width: 320px;
+		padding: 16px 20px;
+	}
+
+	.avatar {
+		width: 68px;
+		height: 68px;
+		flex-basis: 68px;
+	}
+}
+
+@media (max-width: 560px) {
+	.section {
+		padding: 64px 0 80px;
+	}
+
+	.title {
+		font-size: clamp(32px, 9vw, 44px);
+		margin-bottom: 28px;
+	}
+
+	.rows {
+		gap: 14px;
+	}
+
+	.card {
+		min-width: 260px;
+		padding: 12px 16px;
+		gap: 14px;
+	}
+
+	.avatar {
+		width: 52px;
+		height: 52px;
+		flex-basis: 52px;
+	}
+
+	.cardTitle {
+		font-size: clamp(16px, 4.4vw, 22px);
+	}
+}

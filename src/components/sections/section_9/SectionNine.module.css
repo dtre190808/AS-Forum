@@ -1,0 +1,173 @@
+.sectionNine {
+	padding: 88px 0 120px;
+}
+
+.inner {
+	width: min(1720px, calc(100vw - 36px));
+	margin: 0 auto;
+	padding: 0 18px;
+	box-sizing: border-box;
+}
+
+.title {
+	margin: 0 0 28px;
+	color: #a9c8f3;
+	font-size: clamp(52px, 6vw, 96px);
+	line-height: 0.88;
+	text-transform: uppercase;
+	letter-spacing: -0.05em;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.item {
+	border-radius: 26px;
+	background: #14151f;
+	overflow: hidden;
+	transition: background-color 0.24s ease;
+}
+
+.itemOpen {
+	background: #181b28;
+}
+
+.trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+	width: 100%;
+	padding: 28px 24px;
+	border: none;
+	background: transparent;
+	color: #ffffff;
+	cursor: pointer;
+	text-align: left;
+}
+
+.question {
+	font-family: var(--heading);
+	font-size: clamp(20px, 2vw, 38px);
+	line-height: 1;
+}
+
+.icon {
+	flex: 0 0 auto;
+	color: #ffffff;
+	font-size: 46px;
+	line-height: 1;
+	font-weight: 300;
+	transition: transform 0.24s ease;
+}
+
+.iconOpen {
+	transform: rotate(45deg);
+}
+
+.answerWrap {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease;
+}
+
+.answerWrapOpen {
+	max-height: 220px;
+	transition: max-height 0.36s ease;
+}
+
+.answer {
+	max-width: 1250px;
+	margin: 0;
+	padding: 0 24px 28px;
+	color: rgba(255, 255, 255, 0.84);
+	font-family: var(--heading);
+	font-size: clamp(14px, 1.05vw, 18px);
+	line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+	.sectionNine {
+		padding: 70px 0 92px;
+	}
+
+	.inner {
+		width: calc(100% - 20px);
+		padding: 0 4px;
+	}
+
+	.title {
+		margin-bottom: 20px;
+		font-size: clamp(40px, 11vw, 68px);
+	}
+
+	.list {
+		gap: 14px;
+	}
+
+	.item {
+		border-radius: 20px;
+	}
+
+	.trigger {
+		padding: 20px 18px;
+	}
+
+	.question {
+		font-size: clamp(16px, 5vw, 24px);
+		line-height: 1.08;
+	}
+
+	.icon {
+		font-size: 34px;
+	}
+
+	.answer {
+		padding: 0 18px 20px;
+		font-size: clamp(13px, 3.8vw, 16px);
+	}
+}
+
+@media (max-width: 560px) {
+	.sectionNine {
+		padding: 56px 0 72px;
+	}
+
+	.inner {
+		width: calc(100% - 12px);
+	}
+
+	.title {
+		font-size: clamp(34px, 10vw, 52px);
+		margin-bottom: 16px;
+	}
+
+	.list {
+		gap: 10px;
+	}
+
+	.item {
+		border-radius: 16px;
+	}
+
+	.trigger {
+		padding: 16px 14px;
+		gap: 14px;
+	}
+
+	.question {
+		font-size: clamp(14px, 4.2vw, 20px);
+	}
+
+	.icon {
+		font-size: 28px;
+	}
+
+	.answer {
+		padding: 0 14px 16px;
+		font-size: clamp(12px, 3.6vw, 14px);
+	}
+}

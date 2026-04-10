@@ -1,0 +1,240 @@
+.section {
+	padding: 112px 0 128px;
+}
+
+.inner {
+	width: min(1520px, calc(100% - 32px));
+	margin: 0 auto;
+}
+
+.title {
+	margin: 0 0 36px;
+	color: #ffffff;
+	font-size: clamp(42px, 5vw, 78px);
+	line-height: 0.95;
+	text-transform: uppercase;
+}
+
+.playIcon {
+	width: 54px;
+	height: 54px;
+	border-radius: 50%;
+	background: #a6cbfb;
+	position: relative;
+	flex: 0 0 auto;
+}
+
+.playIcon::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 16px solid #031126;
+	transform: translate(-35%, -50%);
+}
+
+.videoShell {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	min-height: 720px;
+	border-radius: 40px;
+	background: rgba(255, 255, 255, 0.06);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+}
+
+.videoPlayButton {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 2;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 108px;
+	height: 108px;
+	padding: 0;
+	border: none;
+	border-radius: 50%;
+	background: transparent;
+	cursor: pointer;
+	transform: translate(-50%, -50%);
+	transition: transform 0.25s ease;
+}
+
+.videoPlayButton:hover {
+	transform: translate(-50%, -50%) scale(1.04);
+}
+
+.video {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 720px;
+	object-fit: cover;
+}
+
+.videoShade {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgba(3, 17, 38, 0.14), rgba(3, 17, 38, 0.58) 88%);
+	pointer-events: none;
+}
+
+.caption {
+	position: absolute;
+	left: 40px;
+	right: 40px;
+	bottom: 36px;
+	margin: 0;
+	color: #ffffff;
+	font-family: var(--heading);
+	font-size: clamp(26px, 3vw, 42px);
+	line-height: 1;
+	text-transform: uppercase;
+}
+
+.modal {
+	position: fixed;
+	inset: 0;
+	z-index: 300;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+}
+
+.backdrop {
+	position: absolute;
+	inset: 0;
+	border: 0;
+	background: rgba(1, 7, 17, 0.82);
+	cursor: pointer;
+}
+
+.modalCard {
+	position: relative;
+	z-index: 1;
+	width: min(1180px, 100%);
+	padding: 18px;
+	border-radius: 32px;
+	background: rgba(7, 21, 44, 0.88);
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	box-shadow: 0 32px 80px rgba(0, 0, 0, 0.42);
+}
+
+.closeButton {
+	position: absolute;
+	top: 14px;
+	right: 14px;
+	z-index: 2;
+	width: 44px;
+	height: 44px;
+	border: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.14);
+	color: #ffffff;
+	font-size: 28px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.modalVideo {
+	display: block;
+	width: 100%;
+	max-height: min(80vh, 760px);
+	border-radius: 22px;
+	background: #000000;
+}
+
+@media (max-width: 900px) {
+	.section {
+		padding: 88px 0 104px;
+	}
+
+	.inner {
+		width: calc(100% - 20px);
+	}
+
+	.videoShell,
+	.video {
+		min-height: 420px;
+	}
+
+	.videoPlayButton {
+		width: 82px;
+		height: 82px;
+	}
+
+	.caption {
+		left: 22px;
+		right: 22px;
+		bottom: 22px;
+	}
+
+	.modal {
+		padding: 12px;
+	}
+
+	.modalCard {
+		padding: 12px;
+		border-radius: 22px;
+	}
+}
+
+@media (max-width: 560px) {
+	.section {
+		padding: 64px 0 80px;
+	}
+
+	.inner {
+		width: calc(100% - 12px);
+	}
+
+	.videoShell,
+	.video {
+		min-height: 280px;
+		border-radius: 24px;
+	}
+
+	.videoPlayButton {
+		width: 64px;
+		height: 64px;
+	}
+
+	.playIcon {
+		width: 42px;
+		height: 42px;
+	}
+
+	.playIcon::before {
+		border-top-width: 8px;
+		border-bottom-width: 8px;
+		border-left-width: 12px;
+	}
+
+	.caption {
+		left: 14px;
+		right: 14px;
+		bottom: 14px;
+		font-size: clamp(18px, 5vw, 26px);
+	}
+
+	.modal {
+		padding: 8px;
+	}
+
+	.modalCard {
+		padding: 8px;
+		border-radius: 16px;
+	}
+
+	.modalVideo {
+		border-radius: 14px;
+	}
+}
