@@ -4,7 +4,7 @@ import babel from '@rolldown/plugin-babel'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/forum-as/',
+  base: '/AS-Forum/',
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] })
