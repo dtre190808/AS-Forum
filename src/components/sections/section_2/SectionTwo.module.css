@@ -16,7 +16,8 @@
 	align-items: center;
 	gap: 56px;
 	min-width: max-content;
-	animation: marquee 18s linear infinite;
+	padding-left: 56px;
+	animation: marquee 30s linear infinite;
 }
 
 .item {
@@ -38,11 +39,11 @@
 
 @keyframes marquee {
 	from {
-		transform: translateX(-100%);
+		transform: translate3d(-50%, 0, 0);
 	}
 
 	to {
-		transform: translateX(0);
+		transform: translate3d(0, 0, 0);
 	}
 }
 
