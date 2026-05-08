@@ -85,13 +85,27 @@
   }
 
   .container {
+    width: 100%;
+    max-width: 100%;
     padding: 24px 16px;
+    box-sizing: border-box;
   }
 
   .title {
     font-size: clamp(38px, 11vw, 54px);
-    max-width: none;
+    max-width: 100%;
     line-height: 0.96;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .subtitle {
+    align-self: stretch;
+    max-width: 100%;
+    margin-top: 32px;
+    padding-right: 0;
+    font-size: 18px;
+    overflow-wrap: anywhere;
   }
 
   .button {

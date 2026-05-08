@@ -1,5 +1,5 @@
 import { type ChangeEvent, type FormEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './RegisterPage.module.css';
 
 const Gender = {
@@ -85,16 +85,47 @@ function RegisterPage() {
       setIsCityLoading(false);
       return;
     }
+    const token = import.meta.env.VITE_DADATA_TOKEN as string | undefined;
+    if (!token) {
+      setCitySuggestions([]);
+      setIsCityLoading(false);
+      return;
+    }
     const controller = new AbortController();
     fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&language=ru&count=10`,
-      { signal: controller.signal },
+      'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
+      {
+        method: 'POST',
+        signal: controller.signal,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Token ${token}`,
+        },
+        body: JSON.stringify({
+          query: q,
+          count: 10,
+          from_bound: { value: 'city' },
+          to_bound: { value: 'settlement' },
+          locations: [{ country: '*' }],
+        }),
+      },
     )
       .then((res) => res.json())
-      .then((data) => {
-        const results: string[] = (data.results ?? []).map(
-          (r: { name: string; country: string }) => `${r.name}, ${r.country}`,
-        );
+      .then((data: { suggestions?: Array<{ value: string; data: { city?: string | null; settlement?: string | null; region?: string | null; country?: string | null } }> }) => {
+        const seen = new Set<string>();
+        const results: string[] = [];
+        for (const s of data.suggestions ?? []) {
+          const city = s.data.city || s.data.settlement;
+          if (!city) continue;
+          const region = s.data.region && s.data.region !== city ? s.data.region : null;
+          const country = s.data.country;
+          const label = [city, region, country].filter(Boolean).join(', ');
+          if (!seen.has(label)) {
+            seen.add(label);
+            results.push(label);
+          }
+        }
         setCitySuggestions(results);
       })
       .catch(() => {})
@@ -237,10 +268,8 @@ function RegisterPage() {
       formData.append('city', form.city);
       formData.append('gender', form.gender);
       formData.append('birthDate', form.birthDate);
-      // @ts-ignore
-      formData.append('age', calculateAge(form.birthDate));
-      // @ts-ignore
-      formData.append('agreeToPolicy', form.agreeToPolicy);
+      formData.append('age', String(calculateAge(form.birthDate)));
+      formData.append('agreeToPolicy', String(form.agreeToPolicy));
 
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
@@ -437,13 +466,9 @@ function RegisterPage() {
             />
             <span>
               Я согласен(а) на{' '}
-              <a
-                className={styles.policyLink}
-                href="https://100leaders.alabuga.ru/personal-data.pdf"
-                target="_blank"
-                rel="noopener noreferrer">
+              <Link className={styles.policyLink} to="/approval" target="_blank" rel="noopener noreferrer">
                 обработку персональных данных
-              </a>
+              </Link>
             </span>
           </label>
           {errors.agreeToPolicy && <span className={styles.error}>{errors.agreeToPolicy}</span>}

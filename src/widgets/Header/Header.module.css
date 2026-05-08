@@ -90,12 +90,13 @@
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: clamp(36px, 4vw, 44px);
-  height: clamp(36px, 4vw, 44px);
-  padding: 9px;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  padding: 11px;
   border: none;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   cursor: pointer;
   z-index: 102;
 }
