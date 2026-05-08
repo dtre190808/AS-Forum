@@ -54,8 +54,14 @@ function Footer() {
           </p>
           <p className={styles.companyDetail}>
             E-mail:{" "}
-            <a className={styles.legalLink} href="mailto:Assessment@alabuga.ru">
-              Assessment@alabuga.ru
+            <a className={styles.legalLink} href="mailto:invest@alabuga.ru">
+              invest@alabuga.ru
+            </a>
+          </p>
+          <p className={styles.companyDetail}>
+            Телефон:{" "}
+            <a className={styles.legalLink} href="tel:+78555759006">
+              +7 (85557) 5-90-06
             </a>
           </p>
           <div className={styles.legalLinks}>
