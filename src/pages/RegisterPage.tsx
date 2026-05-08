@@ -268,10 +268,8 @@ function RegisterPage() {
       formData.append('city', form.city);
       formData.append('gender', form.gender);
       formData.append('birthDate', form.birthDate);
-      // @ts-ignore
-      formData.append('age', calculateAge(form.birthDate));
-      // @ts-ignore
-      formData.append('agreeToPolicy', form.agreeToPolicy);
+      formData.append('age', String(calculateAge(form.birthDate)));
+      formData.append('agreeToPolicy', String(form.agreeToPolicy));
 
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
