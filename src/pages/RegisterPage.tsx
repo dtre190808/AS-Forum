@@ -86,7 +86,9 @@ function RegisterPage() {
       return;
     }
     const token = import.meta.env.VITE_DADATA_TOKEN as string | undefined;
+    console.log('[DaData] query:', q, 'token present:', !!token);
     if (!token) {
+      console.warn('[DaData] VITE_DADATA_TOKEN is missing — restart npm run dev');
       setCitySuggestions([]);
       setIsCityLoading(false);
       return;
@@ -248,7 +250,7 @@ function RegisterPage() {
   //   }
   // }
 
-  const WEBHOOK_URL = 'https://wh.webjack.ru/http/d68363dd564b4c21ab62208f25961de2/'; // ← Замени на реальный URL
+  const WEBHOOK_URL = 'https://wh.webjack.ru/http/d68363dd564b4c21ab62208f25961de2/';
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
