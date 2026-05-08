@@ -2,11 +2,9 @@ import styles from "./SectionTwo.module.css"
 
 const bannerItems: string[] = [
   "Елабуга 16 мая",
-  "Чита 22 мая",
-  "Абакан 24 мая",
-  "Елабуга 16 мая",
-  "Чита 22 мая",
-  "Абакан 24 мая",
+  "Чита 21 мая",
+  "Абакан 22 мая",
+  "Кызыл 23 мая",
 ]
 
 function SectionTwo() {

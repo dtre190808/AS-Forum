@@ -47,11 +47,29 @@ function Footer() {
           <img className={`${styles.photo} ${styles.photoLeft}`} src="/hero/devochki.png" alt="Участница программы" />
         </div>
 
+        <div className={styles.legalBlock}>
+          <p className={styles.companyName}>АО «ОЭЗ ППТ «Алабуга»</p>
+          <p className={styles.companyDetail}>
+            Юридический адрес: 423601, Республика Татарстан, Елабужский район, ул. Ш-2 (ОЭЗ Алабуга тер.), д. 4/1
+          </p>
+          <p className={styles.companyDetail}>
+            E-mail:{" "}
+            <a className={styles.legalLink} href="mailto:Assessment@alabuga.ru">
+              Assessment@alabuga.ru
+            </a>
+          </p>
+          <div className={styles.legalLinks}>
+            <Link className={styles.legalLink} to="/cookie">Куки</Link>
+            <Link className={styles.legalLink} to="/privacy-policy">Политика конфиденциальности</Link>
+            <Link className={styles.legalLink} to="/approval">Согласие на обработку ПД</Link>
+          </div>
+        </div>
+
         <div className={styles.meta}>
           <span>©ALABUGA START. 2026</span>
           <span>ОГРН 1061674037259</span>
           <span>ИНН 1646019914</span>
-          <span>2026 ОЭЗ ППТ "АЛАБУГА" 16+</span>
+          <span>2026 АО «ОЭЗ ППТ «Алабуга» 16+</span>
         </div>
       </div>
     </footer>
