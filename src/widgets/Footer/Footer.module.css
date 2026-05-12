@@ -97,9 +97,9 @@
 .visual {
 	position: relative;
 	width: 100%;
-	height: 220px;
+	height: 380px;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: flex-end;
 	z-index: 1;
 }
@@ -107,12 +107,12 @@
 .photo,
 .photoLeft {
 	display: block;
-	margin-left: auto;
+	margin: 0 auto;
 	width: auto;
 	height: 100%;
 	max-width: 100%;
 	object-fit: contain;
-	object-position: right bottom;
+	object-position: center bottom;
 	pointer-events: none;
 	user-select: none;
 }
@@ -205,7 +205,7 @@
 	}
 
 	.visual {
-		height: 320px;
+		height: 460px;
 	}
 
 	.companyName {
@@ -245,7 +245,7 @@
 	.visual {
 		grid-area: visual;
 		height: auto;
-		min-height: 360px;
+		min-height: 460px;
 	}
 
 	.legalBlock {
@@ -272,7 +272,7 @@
 
 	.photo,
 	.photoLeft {
-		max-height: 460px;
+		max-height: 580px;
 	}
 }
 
@@ -317,7 +317,7 @@
 
 	.photo,
 	.photoLeft {
-		max-height: 600px;
+		max-height: 760px;
 	}
 
 	.legalBlock {
@@ -409,6 +409,6 @@
 
 	.photo,
 	.photoLeft {
-		max-height: 680px;
+		max-height: 860px;
 	}
 }

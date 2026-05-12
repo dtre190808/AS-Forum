@@ -75,6 +75,7 @@ function RegisterPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const cityWrapRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
 
@@ -236,19 +237,6 @@ function RegisterPage() {
     return Object.keys(next).length === 0;
   };
 
-  // const handleSubmit = async (e: FormEvent) => {
-  //   e.preventDefault()
-  //   if (!validate()) return
-
-  //   setIsSubmitting(true)
-  //   try {
-  //     // TODO: заменить на реальный эндпоинт
-  //     await new Promise((resolve) => setTimeout(resolve, 800))
-  //     setIsSubmitted(true)
-  //   } finally {
-  //     setIsSubmitting(false)
-  //   }
-  // }
 
   const WEBHOOK_URL = 'https://wh.webjack.ru/http/d68363dd564b4c21ab62208f25961de2/';
 
@@ -258,6 +246,7 @@ function RegisterPage() {
 
     setIsSubmitting(true);
     setErrors({});
+    setSubmitError(null);
 
     try {
       const formData = new FormData();
@@ -287,7 +276,7 @@ function RegisterPage() {
     } catch (error) {
       console.error('Ошибка отправки заявки:', error);
 
-      window.alert('Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами.');
+      setSubmitError('Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами.');
     } finally {
       setIsSubmitting(false);
     }
@@ -395,8 +384,9 @@ function RegisterPage() {
                 autoComplete="off"
                 value={form.city || cityQuery}
                 onChange={(e) => {
-                  setCityQuery(e.target.value);
-                  setForm((prev) => ({ ...prev, city: '' }));
+                  const value = e.target.value;
+                  setCityQuery(value);
+                  setForm((prev) => ({ ...prev, city: value }));
                   setIsCityDropdownOpen(true);
                 }}
                 onFocus={() => setIsCityDropdownOpen(true)}
@@ -478,6 +468,7 @@ function RegisterPage() {
           <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
             {isSubmitting ? 'Отправка...' : 'Зарегистрироваться'}
           </button>
+          {submitError && <span className={styles.error}>{submitError}</span>}
         </form>
       </div>
     </div>

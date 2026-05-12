@@ -8,10 +8,12 @@
 }
 
 .title { 
-  font-size: 170px;
+  font-size: clamp(64px, 13vw, 170px);
   text-transform: uppercase;
   color: #ffff;
   line-height: 0.92;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .highlight { 

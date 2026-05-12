@@ -37,11 +37,11 @@
 .card {
 	position: relative;
 	display: grid;
-	grid-template-columns: 188px minmax(0, 1fr);
+	grid-template-columns: 260px minmax(0, 1fr);
 	align-items: end;
-	width: 760px;
-	min-height: 286px;
-	padding: 20px 22px 18px 16px;
+	width: 820px;
+	min-height: 340px;
+	padding: 24px 26px 22px 18px;
 	border-radius: 30px;
 	background: #a9c8f3;
 	box-sizing: border-box;
@@ -59,8 +59,8 @@
 
 .image {
 	display: block;
-	width: 168px;
-	max-height: 268px;
+	width: 240px;
+	max-height: 320px;
 	object-fit: contain;
 	object-position: center bottom;
 	transform: translateY(6px);
@@ -113,16 +113,16 @@
 	}
 
 	.card {
-		width: 660px;
-		grid-template-columns: 160px minmax(0, 1fr);
-		min-height: 248px;
-		padding: 18px 18px 16px 14px;
+		width: 720px;
+		grid-template-columns: 220px minmax(0, 1fr);
+		min-height: 300px;
+		padding: 20px 20px 18px 16px;
 		border-radius: 26px;
 	}
 
 	.image {
-		width: 142px;
-		max-height: 236px;
+		width: 200px;
+		max-height: 280px;
 	}
 
 	.text {
@@ -151,21 +151,21 @@
 	}
 
 	.card {
-		width: min(82vw, 420px);
+		width: min(86vw, 460px);
 		grid-template-columns: 1fr;
 		min-height: auto;
-		padding: 18px 16px 18px;
+		padding: 20px 18px 20px;
 		border-radius: 22px;
 	}
 
 	.imageWrap {
-		min-height: 190px;
-		margin-bottom: 4px;
+		min-height: 280px;
+		margin-bottom: 8px;
 	}
 
 	.image {
-		width: 150px;
-		max-height: 190px;
+		width: min(80%, 260px);
+		max-height: 280px;
 		transform: none;
 	}
 
@@ -195,18 +195,18 @@
 	}
 
 	.card {
-		width: min(88vw, 330px);
-		padding: 14px 12px;
+		width: min(90vw, 360px);
+		padding: 16px 14px;
 		border-radius: 18px;
 	}
 
 	.imageWrap {
-		min-height: 150px;
+		min-height: 230px;
 	}
 
 	.image {
-		width: 118px;
-		max-height: 150px;
+		width: min(82%, 220px);
+		max-height: 230px;
 	}
 
 	.name {

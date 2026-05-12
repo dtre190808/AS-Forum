@@ -48,10 +48,11 @@
 .subtitle {
   margin-top: 70px;
   color: #ffffff;
-  font-size: 30px;
+  font-size: clamp(20px, 2.4vw, 30px);
   align-self: flex-end;
-  max-width: 850px;
+  max-width: min(850px, 100%);
   padding-right: 47px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
@@ -72,8 +73,10 @@
 
   .subtitle {
     margin-top: 48px;
-    font-size: 24px;
+    font-size: clamp(18px, 3vw, 24px);
     max-width: 620px;
+    padding-right: 0;
+    align-self: stretch;
   }
 }
 

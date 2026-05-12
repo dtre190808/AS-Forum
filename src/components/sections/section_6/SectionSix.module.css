@@ -46,7 +46,7 @@
 
 .heroImageWrap {
 	flex-shrink: 0;
-	width: 660px;
+	width: 720px;
 	align-self: stretch;
 	position: absolute;
 	left: 0;
@@ -73,8 +73,8 @@
 .content {
 	position: relative;
 	z-index: 2;
-	width: calc(100% - 710px);
-	margin-left: 660px;
+	width: calc(100% - 760px);
+	margin-left: 720px;
 	padding-right: 0;
 	color: #081133;
 }
@@ -83,7 +83,7 @@
 	max-width: 920px;
 	margin: 0 0 28px;
 	color: #0a1337;
-	font-size: 60px;
+	font-size: clamp(28px, 3.6vw, 60px);
 	line-height: 0.94;
 	text-transform: uppercase;
 	letter-spacing: -0.02em;
@@ -99,7 +99,7 @@
 	background: rgba(255, 255, 255, 0.95);
 	color: #2a6fd6;
 	font-family: var(--heading);
-	font-size: 22px;
+	font-size: clamp(14px, 1.4vw, 22px);
 	font-weight: 700;
 	line-height: 1;
 	text-transform: uppercase;
@@ -112,9 +112,10 @@
 	margin: 22px 0 32px;
 	color: #ffffff;
 	font-family: var(--heading);
-	font-size: 24px;
+	font-size: clamp(14px, 1.5vw, 24px);
 	text-transform: uppercase;
 	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+	overflow-wrap: anywhere;
 }
 
 .salary span {
@@ -379,12 +380,12 @@
 	}
 
 	.heroImageWrap {
-		width: 430px;
+		width: 480px;
 	}
 
 	.content {
-		width: calc(100% - 460px);
-		margin-left: 430px;
+		width: calc(100% - 510px);
+		margin-left: 480px;
 	}
 
 	.steps {
@@ -407,12 +408,12 @@
 
 @media (max-width: 1024px) {
 	.heroImageWrap {
-		width: 360px;
+		width: 400px;
 	}
 
 	.content {
-		width: calc(100% - 390px);
-		margin-left: 360px;
+		width: calc(100% - 430px);
+		margin-left: 400px;
 	}
 
 	.steps {
@@ -435,27 +436,37 @@
 	}
 
 	.heroPanel {
+		display: flex;
 		min-height: auto;
-		padding: 24px 18px 18px;
+		padding: 24px 16px 18px;
 		border-radius: 28px 28px 0 0;
 		flex-direction: column;
-		align-items: center;
+		align-items: stretch;
 	}
 
 	.heroImageWrap {
 		position: relative;
 		width: 100%;
-		height: 360px;
+		height: auto;
 		left: auto;
 		top: auto;
 		bottom: auto;
+		margin: 0 0 18px;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
 	}
 
 	.heroImage {
 		position: relative;
-		width: min(100%, 360px);
+		display: block;
+		width: auto;
+		max-width: 100%;
 		height: auto;
+		max-height: 420px;
 		margin: 0 auto;
+		object-fit: contain;
+		object-position: center bottom;
 		filter: none;
 	}
 
@@ -520,8 +531,23 @@
 		border-radius: 22px 22px 0 0;
 	}
 
+	.heroImageWrap {
+		height: auto;
+		margin: 0 0 14px;
+	}
+
+	.heroImage {
+		width: auto;
+		max-width: 100%;
+		max-height: 340px;
+		margin: 0 auto;
+	}
+
 	.title {
-		font-size: 24px;
+		font-size: clamp(22px, 6.4vw, 30px);
+		max-width: none;
+		word-break: break-word;
+		overflow-wrap: anywhere;
 	}
 
 	.badge {

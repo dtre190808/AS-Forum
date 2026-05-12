@@ -47,6 +47,17 @@ html {
   scroll-behavior: smooth;
 }
 
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+video {
+  height: auto;
+}
+
 h1,
 h2,
 h3,

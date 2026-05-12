@@ -67,7 +67,6 @@ function Footer() {
           <div className={styles.legalLinks}>
             <Link className={styles.legalLink} to="/cookie">Куки</Link>
             <Link className={styles.legalLink} to="/privacy-policy">Политика конфиденциальности</Link>
-            <Link className={styles.legalLink} to="/approval">Согласие на обработку ПД</Link>
           </div>
         </div>
 
