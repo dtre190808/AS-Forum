@@ -24,6 +24,7 @@
   gap: var(--space-6);
   width: max-content;
   animation: scroll 22s linear infinite;
+  animation-direction: reverse;
 }
 
 @media (prefers-reduced-motion: reduce) {
