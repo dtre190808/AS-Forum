@@ -58,24 +58,27 @@
   place-items: center;
   width: 78px;
   height: 78px;
-  color: #ffffff;
+  border-radius: 22px;
+  background: rgba(166, 203, 251, 0.08);
+  border: 1px solid rgba(166, 203, 251, 0.22);
+  color: var(--accent);
   flex: 0 0 auto;
 }
 
 .iconWrap img {
   display: block;
-  width: 68px;
-  height: 68px;
+  width: 44px;
+  height: 44px;
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
 
 .iconWrap svg {
-  width: 68px;
-  height: 68px;
+  width: 36px;
+  height: 36px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.8;
+  stroke-width: 1.6;
   stroke-linecap: round;
   stroke-linejoin: round;
   overflow: visible;
@@ -209,12 +212,13 @@
   .iconWrap {
     width: 58px;
     height: 58px;
+    border-radius: 16px;
   }
 
   .iconWrap img,
   .iconWrap svg {
-    width: 50px;
-    height: 50px;
+    width: 28px;
+    height: 28px;
   }
 
   .itemText {
@@ -274,12 +278,13 @@
   .iconWrap {
     width: 44px;
     height: 44px;
+    border-radius: 12px;
   }
 
   .iconWrap img,
   .iconWrap svg {
-    width: 38px;
-    height: 38px;
+    width: 22px;
+    height: 22px;
   }
 
   .itemText {

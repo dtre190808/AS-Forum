@@ -30,11 +30,16 @@ function SectionNine() {
 									aria-expanded={isOpen}
 								>
 									<span className={styles.question}>{item.question}</span>
-									<span className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}>+</span>
+									<span className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`} aria-hidden="true">
+										<span className={styles.iconBar}></span>
+										<span className={`${styles.iconBar} ${styles.iconBarVertical}`}></span>
+									</span>
 								</button>
 
 								<div className={`${styles.answerWrap} ${isOpen ? styles.answerWrapOpen : ""}`}>
-									<p className={styles.answer}>{item.answer}</p>
+									<div className={styles.answerInner}>
+										<p className={styles.answer}>{item.answer}</p>
+									</div>
 								</div>
 							</article>
 						)

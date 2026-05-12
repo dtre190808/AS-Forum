@@ -1,23 +1,92 @@
-@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&display=swap");
 
 :root {
+  /* Colors */
   --bg: #031126;
+  --bg-elev: #0a1840;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-2: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.66);
+  --text-soft: rgba(255, 255, 255, 0.82);
+  --accent: #a6cbfb;
+  --accent-2: #4290f2;
+  --accent-deep: #2a6fd6;
+  --accent-soft: #d6e6fb;
+  --danger: #ff6b6b;
+
+  /* Spacing scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+  --space-13: 120px;
+
+  /* Radii */
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.42);
+  --shadow-glow: 0 16px 48px rgba(66, 144, 242, 0.32);
+
+  /* Section vertical rhythm (mobile first; bumped on bigger screens) */
+  --section-y: 64px;
+  --container-x: 16px;
+  --container-max: 1280px;
+
+  /* Typography */
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: 'Unbounded', system-ui, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color-scheme: dark;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+@media (min-width: 640px) {
+  :root {
+    --section-y: 88px;
+    --container-x: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    font-size: 17px;
+    --section-y: 112px;
+    --container-x: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    font-size: 18px;
+    --section-y: 140px;
   }
 }
 
@@ -31,6 +100,7 @@ html, body {
 body {
   line-height: normal;
   position: relative;
+  background: var(--bg);
 }
 
 #root {
@@ -58,6 +128,23 @@ video {
   height: auto;
 }
 
+/* People photos: hide low-res artifacts */
+img[data-photo="person"] {
+  image-rendering: auto;
+  filter: contrast(1.04) saturate(1.06);
+}
+
+img[data-photo="person-fade"] {
+  image-rendering: auto;
+  filter: contrast(1.04) saturate(1.06);
+  -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
+}
+
+img[data-photo="avatar"] {
+  filter: contrast(1.05) saturate(1.08);
+}
+
 h1,
 h2,
 h3,
@@ -66,6 +153,33 @@ h5,
 h6 {
   font-family: var(--heading);
   font-weight: 700;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
+p {
+  text-wrap: pretty;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 

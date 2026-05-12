@@ -44,7 +44,14 @@ function Footer() {
         </div>
 
         <div className={styles.visual}>
-          <img className={`${styles.photo} ${styles.photoLeft}`} src="/hero/devochki.png" alt="Участница программы" />
+          <img
+            className={`${styles.photo} ${styles.photoLeft}`}
+            src="/hero/devochki.png"
+            alt="Участница программы"
+            loading="lazy"
+            decoding="async"
+            data-photo="person-fade"
+          />
         </div>
 
         <div className={styles.legalBlock}>

@@ -56,7 +56,14 @@ function SectionThree() {
             <div className={`${styles.track} ${row.reverse ? styles.trackReverse : ""}`}>
               {[...row.items, ...row.items, ...row.items].map((item, index) => (
                 <article key={`${row.id}-${index}`} className={styles.card}>
-                  <img className={styles.avatar} src={item.image} alt={item.title} />
+                  <img
+                    className={styles.avatar}
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    decoding="async"
+                    data-photo="avatar"
+                  />
                   <h3 className={styles.cardTitle}>{item.title}</h3>
                 </article>
               ))}

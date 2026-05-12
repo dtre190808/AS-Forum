@@ -1,43 +1,52 @@
 import { useState } from "react"
-import { successStories, storiesScrollDuration } from "./data/data"
+import { successStories } from "./data/data"
 import styles from "./SectionEight.module.css"
 
-const repeatedStories = [...successStories, ...successStories]
-
 function SectionEight() {
-	const [isTrackPaused, setIsTrackPaused] = useState(false)
+  const [expandedId, setExpandedId] = useState<number | null>(null)
 
-	return (
-		<section id="success-stories" className={styles.sectionEight}>
-			<div className={styles.header}>
-				<h2 className={styles.title}>Истории успеха</h2>
-			</div>
+  return (
+    <section id="success-stories" className={styles.sectionEight}>
+      <header className={styles.header}>
+        <span className={styles.eyebrow}>Реальные истории</span>
+        <h2 className={styles.title}>Истории успеха</h2>
+      </header>
 
-			<div className={styles.viewport}>
-				<div
-					className={`${styles.track} ${isTrackPaused ? styles.trackPaused : ""}`}
-					style={{ ["--stories-duration" as string]: `${storiesScrollDuration}s` }}
-					onPointerDown={() => setIsTrackPaused(true)}
-					onPointerUp={() => setIsTrackPaused(false)}
-					onPointerCancel={() => setIsTrackPaused(false)}
-					onPointerLeave={() => setIsTrackPaused(false)}
-				>
-					{repeatedStories.map((story, index) => (
-						<article className={styles.card} key={`${story.id}-${index}`}>
-							<div className={styles.imageWrap}>
-								<img className={styles.image} src={story.image} alt={story.imageAlt} />
-							</div>
+      <div className={styles.scroller}>
+        {successStories.map((story) => {
+          const isExpanded = expandedId === story.id
 
-							<div className={styles.content}>
-								<h3 className={styles.name}>{story.name}</h3>
-								<p className={styles.text}>{story.text}</p>
-							</div>
-						</article>
-					))}
-				</div>
-			</div>
-		</section>
-	)
+          return (
+            <article
+              key={story.id}
+              className={`${styles.card} ${isExpanded ? styles.expanded : ""}`}
+            >
+              <img
+                className={styles.image}
+                src={story.image}
+                alt={story.imageAlt}
+                loading="lazy"
+                decoding="async"
+                data-photo="person"
+              />
+              <div className={styles.body}>
+                <h3 className={styles.name}>{story.name}</h3>
+                <p className={styles.text}>{story.text}</p>
+                <button
+                  type="button"
+                  className={styles.toggle}
+                  onClick={() => setExpandedId(isExpanded ? null : story.id)}
+                  aria-expanded={isExpanded}
+                >
+                  {isExpanded ? "Свернуть" : "Читать полностью"}
+                </button>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+    </section>
+  )
 }
 
 export default SectionEight

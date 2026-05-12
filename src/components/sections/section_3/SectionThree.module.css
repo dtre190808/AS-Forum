@@ -29,6 +29,10 @@
 	overflow: hidden;
 }
 
+.rowViewport:hover .track {
+	animation-play-state: paused;
+}
+
 .track {
 	display: flex;
 	align-items: center;
@@ -90,6 +94,21 @@
 
 	to {
 		transform: translateX(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.track {
+		animation: none;
+	}
+
+	.rowViewport {
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+
+	.rowViewport::-webkit-scrollbar {
+		display: none;
 	}
 }
 

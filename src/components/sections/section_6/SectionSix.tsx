@@ -1,124 +1,120 @@
-import { useEffect, useState } from "react"
-import { cardRotationDuration, directions } from "./data/data"
+import { useState } from "react"
+import { directions } from "./data/data"
 import styles from "./SectionSix.module.css"
 
 function SectionSix() {
-  const [expandedStepId, setExpandedStepId] = useState<number | null>(1)
-  const [activeDirectionIndex, setActiveDirectionIndex] = useState(0)
-  const [progress, setProgress] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [expandedStep, setExpandedStep] = useState<number | null>(1)
 
-  useEffect(() => {
-    const startedAt = Date.now()
+  const direction = directions[activeIndex]
 
-    const intervalId = window.setInterval(() => {
-      const elapsed = Date.now() - startedAt
-
-      if (elapsed >= cardRotationDuration) {
-        window.clearInterval(intervalId)
-        setProgress(0)
-        setActiveDirectionIndex((currentIndex) => (currentIndex + 1) % directions.length)
-
-        return
-      }
-
-      const nextProgress = Math.min((elapsed / cardRotationDuration) * 100, 100)
-
-      setProgress(nextProgress)
-    }, 50)
-
-    return () => {
-      window.clearInterval(intervalId)
-    }
-  }, [activeDirectionIndex])
-
-  const activeDirection = directions[activeDirectionIndex]
-  const activeSteps = activeDirection.steps
-
-  const handleStepToggle = (stepId: number) => {
-    setExpandedStepId((currentStepId) => (currentStepId === stepId ? null : stepId))
+  const handleSelectDirection = (index: number) => {
+    setActiveIndex(index)
+    setExpandedStep(directions[index].steps[0]?.id ?? null)
   }
 
-  const handleDirectionSelect = (index: number) => {
-    setActiveDirectionIndex(index)
-    setExpandedStepId(directions[index].steps[0]?.id ?? null)
-    setProgress(0)
+  const handleToggleStep = (id: number) => {
+    setExpandedStep((current) => (current === id ? null : id))
   }
 
   return (
     <section id="directions" className={styles.sectionSix}>
       <div className={styles.inner}>
-        <div className={styles.heroPanel}>
-          <div className={styles.heroImageWrap}>
-            <img className={styles.heroImage} src={activeDirection.heroImage} alt={activeDirection.title} />
-          </div>
+        <header className={styles.head}>
+          <span className={styles.eyebrow}>Направления</span>
+          <h2 className={styles.title}>
+            Алабуга создаёт кадры,<br />
+            которые создают экономику будущего
+          </h2>
+        </header>
 
-          <div className={styles.content}>
-            <h2 className={styles.title}>
-              АЛАБУГА СОЗДАЕТ КАДРЫ,
-              <br />
-              КОТОРЫЕ СОЗДАЮТ ЭКОНОМИКУ
-              <br />
-              БУДУЩЕГО
-            </h2>
-
-            <div className={styles.badge}>{activeDirection.title}</div>
-
-    
-
-            <p className={styles.salary}>
-              ДЕНЕЖНОЕ СОДЕРЖАНИЕ: <span>{activeDirection.salary}</span>
-            </p>
-
-            <div className={styles.steps}>
-              {activeSteps.map((step) => {
-                const isExpanded = expandedStepId === step.id
-
-                return (
-                <div key={step.id} className={`${styles.stepWrap} ${isExpanded ? styles.stepWrapExpanded : ""}`}>
-                  <article className={`${styles.stepCard} ${isExpanded ? styles.stepCardExpanded : ""}`}>
-                    <span className={styles.stepNumber}>{step.id}</span>
-                    <button
-                      type="button"
-                      className={styles.stepToggle}
-                      onClick={() => handleStepToggle(step.id)}
-                      aria-expanded={isExpanded}
-                      aria-label={isExpanded ? "Скрыть описание" : "Показать описание"}
-                    >
-                      {isExpanded ? "−" : "+"}
-                    </button>
-                    <p className={styles.stepTitle}>{step.title}</p>
-                    <div className={`${styles.stepTextWrap} ${isExpanded ? styles.stepTextWrapExpanded : ""}`}>
-                      <p className={styles.stepText}>{step.text}</p>
-                    </div>
-                  </article>
-                </div>
-              )})}
-            </div>
-          </div>
-
-          <div className={styles.backgroundLabel}>{activeDirection.title}</div>
-        </div>
-
-        <div className={styles.directionGrid}>
-          {directions.map((direction, index) => (
+        <div className={styles.tabs} role="tablist">
+          {directions.map((d, i) => (
             <button
+              key={d.title}
               type="button"
-              key={direction.title}
-              className={`${styles.directionCard} ${activeDirectionIndex === index ? styles.directionCardActive : ""}`}
-              onClick={() => handleDirectionSelect(index)}
+              role="tab"
+              aria-selected={i === activeIndex}
+              className={`${styles.tab} ${i === activeIndex ? styles.tabActive : ""}`}
+              onClick={() => handleSelectDirection(i)}
             >
-              <span className={styles.directionProgressTrack}>
-                <span
-                  className={styles.directionProgressFill}
-                  style={{ width: activeDirectionIndex === index ? `${progress}%` : "0%" }}
-                ></span>
-              </span>
-              <img className={styles.directionImage} src={direction.image} alt={direction.title} />
-              <div className={styles.directionOverlay}></div>
-              <h3 className={styles.directionTitle}>{direction.title}</h3>
+              {d.title}
             </button>
           ))}
         </div>
+
+        <article className={styles.hero}>
+          <div className={styles.heroMedia}>
+            <img
+              key={direction.heroImage}
+              className={styles.heroImage}
+              src={direction.heroImage}
+              alt={direction.title}
+              loading="lazy"
+              decoding="async"
+              data-photo="person"
+            />
+          </div>
+
+          <div className={styles.heroBody}>
+            <h3 className={styles.directionTitle}>{direction.title}</h3>
+
+            <div className={styles.meta}>
+              <div className={styles.metaItem}>
+                <span className={styles.metaLabel}>Срок</span>
+                <span className={styles.metaValue}>{direction.duration}</span>
+              </div>
+              <div className={styles.metaItem}>
+                <span className={styles.metaLabel}>Зарплата</span>
+                <span className={`${styles.metaValue} ${styles.metaValueAccent}`}>
+                  {direction.salary}
+                </span>
+              </div>
+            </div>
+
+            <div className={styles.steps}>
+              {direction.steps.map((step) => {
+                const isActive = expandedStep === step.id
+                return (
+                  <div
+                    key={step.id}
+                    className={`${styles.step} ${isActive ? styles.stepActive : ""}`}
+                  >
+                    <button
+                      type="button"
+                      className={styles.stepHead}
+                      onClick={() => handleToggleStep(step.id)}
+                      aria-expanded={isActive}
+                    >
+                      <span className={styles.stepNumber}>{step.id}</span>
+                      <span className={styles.stepTitle}>{step.title}</span>
+                      <span className={styles.stepSalary}>{step.salary}</span>
+                      <svg
+                        className={styles.stepIcon}
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </button>
+                    <div className={styles.stepBody}>
+                      <div className={styles.stepBodyInner}>
+                        <p className={styles.stepText}>{step.text}</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   )

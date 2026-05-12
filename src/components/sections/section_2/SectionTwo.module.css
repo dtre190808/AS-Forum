@@ -1,88 +1,74 @@
 .section {
-	overflow: hidden;
-	padding: 22px 0;
-	background: #a6cbfb;
+  padding: var(--space-7) 0;
+  background: var(--accent);
+  color: #061226;
+  overflow: hidden;
 }
 
 .marquee {
-	display: flex;
-	width: 100%;
-	overflow: hidden;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
 }
 
 .track {
-	display: flex;
-	flex: 0 0 auto;
-	align-items: center;
-	gap: 56px;
-	min-width: max-content;
-	padding-left: 56px;
-	animation: marquee 30s linear infinite;
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  width: max-content;
+  animation: scroll 22s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
 }
 
 .item {
-	display: inline-flex;
-	align-items: center;
-	gap: 18px;
-	color: #031126;
-	font-family: var(--heading);
-	font-size: 34px;
-	font-weight: 700;
-	line-height: 1;
-	text-transform: uppercase;
-	white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--heading);
+  font-size: clamp(18px, 4.6vw, 36px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .arrow {
-	font-size: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  color: rgba(6, 18, 38, 0.5);
 }
 
-@keyframes marquee {
-	from {
-		transform: translate3d(-50%, 0, 0);
-	}
-
-	to {
-		transform: translate3d(0, 0, 0);
-	}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-@media (max-width: 900px) {
-	.section {
-		padding: 16px 0;
-	}
+@media (min-width: 1024px) {
+  .section {
+    padding: var(--space-8) 0;
+  }
 
-	.track {
-		gap: 28px;
-		animation-duration: 14s;
-	}
-
-	.item {
-		gap: 10px;
-		font-size: 22px;
-	}
-
-	.arrow {
-		font-size: 28px;
-	}
-}
-
-@media (max-width: 560px) {
-	.section {
-		padding: 12px 0;
-	}
-
-	.track {
-		gap: 20px;
-		animation-duration: 12s;
-	}
-
-	.item {
-		gap: 8px;
-		font-size: 16px;
-	}
-
-	.arrow {
-		font-size: 20px;
-	}
+  .track {
+    gap: var(--space-8);
+    animation-duration: 32s;
+  }
 }

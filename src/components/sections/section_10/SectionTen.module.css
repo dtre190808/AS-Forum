@@ -1,84 +1,69 @@
-.sectionTen { 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 96px 16px;
-}
-
-.title { 
-  font-size: clamp(64px, 13vw, 170px);
-  text-transform: uppercase;
-  color: #ffff;
-  line-height: 0.92;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-.highlight { 
-  color: #A6CBFB;
-  text-transform: uppercase;
-} 
-
-.wordWrap {
-  position: relative;
-  display: inline-grid;
+.sectionTen {
+  padding: var(--section-y) var(--container-x);
+  min-height: 60vh;
+  display: grid;
   place-items: center;
 }
 
-.wordSizer,
-.wordTrack {
-  grid-area: 1 / 1;
-  display: inline-flex;
-  align-items: baseline;
-  justify-content: center;
+.title {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(56px, 18vw, 200px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.highlight {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.wordWrap {
+  position: relative;
+  display: inline-block;
 }
 
 .wordSizer {
   visibility: hidden;
   pointer-events: none;
+  display: inline-block;
+}
+
+.wordTrack {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
 }
 
 .word {
-  display: inline-block;
+  background: linear-gradient(135deg, var(--accent) 0%, #ead6ff 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .cursor {
   display: inline-block;
-  width: 0.08em;
-  height: 0.9em;
-  margin-left: 0.06em;
-  background: #ffffff;
-  animation: blink 0.9s step-end infinite;
+  width: 0.06em;
+  height: 0.85em;
+  margin-left: 0.08em;
+  background: var(--accent);
+  animation: blink 1s steps(2) infinite;
+  align-self: center;
 }
 
 @keyframes blink {
-  0%,
-  45% {
-    opacity: 1;
-  }
-
-  46%,
-  100% {
+  to {
     opacity: 0;
   }
 }
 
-@media (max-width: 1024px) {
-  .title {
-    font-size: clamp(92px, 14vw, 136px);
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
   }
 }
-
-@media (max-width: 640px) {
-  .sectionTen {
-    padding: 72px 12px;
-  }
-
-  .title {
-    font-size: clamp(48px, 16vw, 76px);
-    line-height: 0.98;
-  }
-}
-
