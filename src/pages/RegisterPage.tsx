@@ -299,7 +299,7 @@ function RegisterPage() {
     return Object.keys(next).length === 0;
   };
 
-  const WEBHOOK_URL = 'https://wh.webjack.ru/http/d68363dd564b4c21ab62208f25961de2/';
+  const WEBHOOK_URL = 'https://wh.webjack.ru/http/d9243b52c0b3490695d55e5a01044e3e/';
 
 
   const handleSubmit = async (e: FormEvent) => {
