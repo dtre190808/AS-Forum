@@ -55,6 +55,63 @@ function calculateAge(birthDate: string): number | null {
   return age;
 }
 
+const TRACKING_KEYS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_term',
+  'utm_content',
+] as const;
+
+const TRACKING_STORAGE_KEY = 'as_tracking_v1';
+
+type TrackingData = Partial<Record<(typeof TRACKING_KEYS)[number] | 'referrer' | 'landing_url' | 'first_visit_at', string>>;
+
+function captureTracking(): TrackingData {
+  if (typeof window === 'undefined') return {};
+
+  let stored: TrackingData = {};
+  try {
+    const raw = sessionStorage.getItem(TRACKING_STORAGE_KEY);
+    if (raw) stored = JSON.parse(raw) as TrackingData;
+  } catch {
+    stored = {};
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const fresh: TrackingData = {};
+  for (const key of TRACKING_KEYS) {
+    const value = params.get(key);
+    if (value) fresh[key] = value;
+  }
+
+  // Если пришли свежие UTM — перезаписываем атрибуцию (last-touch).
+  // Иначе сохраняем то, что уже было записано в первой сессии.
+  const hasFreshUtm = Object.keys(fresh).length > 0;
+
+  const merged: TrackingData = hasFreshUtm
+    ? {
+        ...fresh,
+        referrer: document.referrer || stored.referrer || '',
+        landing_url: window.location.href,
+        first_visit_at: stored.first_visit_at || new Date().toISOString(),
+      }
+    : {
+        ...stored,
+        referrer: stored.referrer || document.referrer || '',
+        landing_url: stored.landing_url || window.location.href,
+        first_visit_at: stored.first_visit_at || new Date().toISOString(),
+      };
+
+  try {
+    sessionStorage.setItem(TRACKING_STORAGE_KEY, JSON.stringify(merged));
+  } catch {
+    /* ignore quota errors */
+  }
+
+  return merged;
+}
+
 function RegisterPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState<FormData>({
@@ -78,6 +135,11 @@ function RegisterPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const cityWrapRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const trackingRef = useRef<TrackingData>({});
+
+  useEffect(() => {
+    trackingRef.current = captureTracking();
+  }, []);
 
   const fetchCities = useCallback((query: string) => {
     const q = query.trim();
@@ -261,6 +323,14 @@ function RegisterPage() {
       formData.append('birthDate', form.birthDate);
       formData.append('age', String(calculateAge(form.birthDate)));
       formData.append('agreeToPolicy', String(form.agreeToPolicy));
+
+      // UTM-метки и атрибуция
+      const tracking = trackingRef.current;
+      for (const [key, value] of Object.entries(tracking)) {
+        if (value) formData.append(key, value);
+      }
+      formData.append('page_url', window.location.href);
+      formData.append('submitted_at', new Date().toISOString());
 
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
