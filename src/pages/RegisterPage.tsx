@@ -341,6 +341,11 @@ function RegisterPage() {
         throw new Error(`Ошибка сервера: ${response.status}`);
       }
 
+      // Яндекс.Метрика — цель отправки формы
+      if (typeof window !== 'undefined' && typeof (window as unknown as { ym?: (...args: unknown[]) => void }).ym === 'function') {
+        (window as unknown as { ym: (...args: unknown[]) => void }).ym(109187638, 'reachGoal', 'form');
+      }
+
       // Успешная отправка
       setIsSubmitted(true);
     } catch (error) {
