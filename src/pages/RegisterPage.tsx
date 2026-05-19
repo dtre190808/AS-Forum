@@ -341,9 +341,50 @@ function RegisterPage() {
         throw new Error(`Ошибка сервера: ${response.status}`);
       }
 
-      // Яндекс.Метрика — цель отправки формы
-      if (typeof window !== 'undefined' && typeof (window as unknown as { ym?: (...args: unknown[]) => void }).ym === 'function') {
-        (window as unknown as { ym: (...args: unknown[]) => void }).ym(109187638, 'reachGoal', 'form');
+      // Яндекс.Метрика — цель отправки формы (логирование + fallback)
+      try {
+        const w = window as unknown as any;
+        // Помощник для отладки: смотрим, определён ли ym
+        // eslint-disable-next-line no-console
+        console.log('Yandex.Metrika on submit:', typeof w.ym, w.ym);
+
+        if (typeof w.ym === 'function') {
+          w.ym(109187638, 'reachGoal', 'form');
+        } else if (w.ym && Array.isArray(w.ym.a)) {
+          // если установщик метрики создал очередь аргументов, добавим цель туда
+          w.ym.a.push([109187638, 'reachGoal', 'form']);
+        } else {
+          // eslint-disable-next-line no-console
+          console.warn('Yandex.Metrika (ym) is not available to send goal');
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to call ym:', err);
+      }
+
+      // Дополнительные попытки отправить цель через небольшую задержку
+      try {
+        const w = window as unknown as any;
+        const sendGoal = () => {
+          try {
+            if (typeof w.ym === 'function') {
+              w.ym(109187638, 'reachGoal', 'form');
+            } else if (w.ym && Array.isArray(w.ym.a)) {
+              w.ym.a.push([109187638, 'reachGoal', 'form']);
+            }
+          } catch (e) {
+            // ignore
+          }
+        };
+
+        sendGoal();
+        setTimeout(sendGoal, 800);
+        setTimeout(sendGoal, 2000);
+
+        // eslint-disable-next-line no-console
+        console.log('Yandex.Metrika queue after send attempts:', w.ym && w.ym.a);
+      } catch {
+        // ignore
       }
 
       // Успешная отправка
