@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { getTrackedPath } from "../../shared/tracking"
 import styles from "./Footer.module.css"
 
 function Footer() {
@@ -19,7 +20,7 @@ function Footer() {
             для твоего роста
           </h2>
 
-          <Link className={styles.button} to="/register">
+          <Link className={styles.button} to={getTrackedPath("/register")}>
             Зарегистрироваться
           </Link>
 

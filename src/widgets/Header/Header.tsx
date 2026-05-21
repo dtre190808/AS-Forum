@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import logo  from "../../assets/Logo_start.svg"
+import { getTrackedPath } from "../../shared/tracking"
 import styles from "./Header.module.css"
 
 const navItems = [
@@ -79,7 +80,7 @@ function Header() {
             </li>
           ))}
         </ul>
-        <button type="button" className={`${styles.linkButton} ${styles.desktopOnly}`} onClick={() => navigate("/register")}>
+        <button type="button" className={`${styles.linkButton} ${styles.desktopOnly}`} onClick={() => navigate(getTrackedPath("/register"))}>
           Зарегистрироваться
         </button>
         <button
@@ -109,7 +110,7 @@ function Header() {
           <button
             type="button"
             className={styles.mobileRegister}
-            onClick={() => { setIsMenuOpen(false); navigate("/register") }}
+            onClick={() => { setIsMenuOpen(false); navigate(getTrackedPath("/register")) }}
           >
             Зарегистрироваться
           </button>

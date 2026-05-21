@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import styles from "./CookieBanner.module.css"
 
 const STORAGE_KEY = "cookie-consent-accepted"
 
 function CookieBanner() {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
+  const [isVisible, setIsVisible] = useState(() => {
     try {
       const accepted = localStorage.getItem(STORAGE_KEY)
-      if (!accepted) setIsVisible(true)
+      return !accepted
     } catch {
-      setIsVisible(true)
+      return true
     }
-  }, [])
+  })
 
   const handleAccept = () => {
     try {

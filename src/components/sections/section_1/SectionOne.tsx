@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { getTrackedPath } from "../../../shared/tracking"
 import styles from "./SectionOne.module.css"
 
 function SectionOne() {
@@ -15,7 +16,7 @@ function SectionOne() {
       </p>
 
       <div className={styles.actions}>
-        <Link to="/register" className={styles.button}>
+        <Link to={getTrackedPath("/register")} className={styles.button}>
           Зарегистрироваться
         </Link>
         <a href="#about-forum" className={`${styles.button} ${styles.buttonGhost}`}>

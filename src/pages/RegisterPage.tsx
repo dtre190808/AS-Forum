@@ -1,5 +1,6 @@
 import { type ChangeEvent, type FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { captureTracking, sendYandexGoal, type TrackingData } from '../shared/tracking';
 import styles from './RegisterPage.module.css';
 
 const Gender = {
@@ -53,63 +54,6 @@ function calculateAge(birthDate: string): number | null {
   }
 
   return age;
-}
-
-const TRACKING_KEYS = [
-  'utm_source',
-  'utm_medium',
-  'utm_campaign',
-  'utm_term',
-  'utm_content',
-] as const;
-
-const TRACKING_STORAGE_KEY = 'as_tracking_v1';
-
-type TrackingData = Partial<Record<(typeof TRACKING_KEYS)[number] | 'referrer' | 'landing_url' | 'first_visit_at', string>>;
-
-function captureTracking(): TrackingData {
-  if (typeof window === 'undefined') return {};
-
-  let stored: TrackingData = {};
-  try {
-    const raw = sessionStorage.getItem(TRACKING_STORAGE_KEY);
-    if (raw) stored = JSON.parse(raw) as TrackingData;
-  } catch {
-    stored = {};
-  }
-
-  const params = new URLSearchParams(window.location.search);
-  const fresh: TrackingData = {};
-  for (const key of TRACKING_KEYS) {
-    const value = params.get(key);
-    if (value) fresh[key] = value;
-  }
-
-  // Если пришли свежие UTM — перезаписываем атрибуцию (last-touch).
-  // Иначе сохраняем то, что уже было записано в первой сессии.
-  const hasFreshUtm = Object.keys(fresh).length > 0;
-
-  const merged: TrackingData = hasFreshUtm
-    ? {
-        ...fresh,
-        referrer: document.referrer || stored.referrer || '',
-        landing_url: window.location.href,
-        first_visit_at: stored.first_visit_at || new Date().toISOString(),
-      }
-    : {
-        ...stored,
-        referrer: stored.referrer || document.referrer || '',
-        landing_url: stored.landing_url || window.location.href,
-        first_visit_at: stored.first_visit_at || new Date().toISOString(),
-      };
-
-  try {
-    sessionStorage.setItem(TRACKING_STORAGE_KEY, JSON.stringify(merged));
-  } catch {
-    /* ignore quota errors */
-  }
-
-  return merged;
 }
 
 function RegisterPage() {
@@ -233,14 +177,16 @@ function RegisterPage() {
           setErrors((prev) => ({ ...prev, birthDate: 'Возраст должен быть от 16 до 22 лет' }));
         } else {
           setErrors((prev) => {
-            const { birthDate: _, ...rest } = prev;
-            return rest;
+            const next = { ...prev };
+            delete next.birthDate;
+            return next;
           });
         }
       } else {
         setErrors((prev) => {
-          const { birthDate: _, ...rest } = prev;
-          return rest;
+          const next = { ...prev };
+          delete next.birthDate;
+          return next;
         });
       }
       return;
@@ -252,8 +198,9 @@ function RegisterPage() {
         setErrors((prev) => ({ ...prev, gender: 'Форум только для девушек' }));
       } else {
         setErrors((prev) => {
-          const { gender: _, ...rest } = prev;
-          return rest;
+          const next = { ...prev };
+          delete next.gender;
+          return next;
         });
       }
       return;
@@ -341,51 +288,7 @@ function RegisterPage() {
         throw new Error(`Ошибка сервера: ${response.status}`);
       }
 
-      // Яндекс.Метрика — цель отправки формы (логирование + fallback)
-      try {
-        const w = window as unknown as any;
-        // Помощник для отладки: смотрим, определён ли ym
-        // eslint-disable-next-line no-console
-        console.log('Yandex.Metrika on submit:', typeof w.ym, w.ym);
-
-        if (typeof w.ym === 'function') {
-          w.ym(109187638, 'reachGoal', 'form');
-        } else if (w.ym && Array.isArray(w.ym.a)) {
-          // если установщик метрики создал очередь аргументов, добавим цель туда
-          w.ym.a.push([109187638, 'reachGoal', 'form']);
-        } else {
-          // eslint-disable-next-line no-console
-          console.warn('Yandex.Metrika (ym) is not available to send goal');
-        }
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn('Failed to call ym:', err);
-      }
-
-      // Дополнительные попытки отправить цель через небольшую задержку
-      try {
-        const w = window as unknown as any;
-        const sendGoal = () => {
-          try {
-            if (typeof w.ym === 'function') {
-              w.ym(109187638, 'reachGoal', 'form');
-            } else if (w.ym && Array.isArray(w.ym.a)) {
-              w.ym.a.push([109187638, 'reachGoal', 'form']);
-            }
-          } catch (e) {
-            // ignore
-          }
-        };
-
-        sendGoal();
-        setTimeout(sendGoal, 800);
-        setTimeout(sendGoal, 2000);
-
-        // eslint-disable-next-line no-console
-        console.log('Yandex.Metrika queue after send attempts:', w.ym && w.ym.a);
-      } catch {
-        // ignore
-      }
+      sendYandexGoal('form');
 
       // Успешная отправка
       setIsSubmitted(true);
