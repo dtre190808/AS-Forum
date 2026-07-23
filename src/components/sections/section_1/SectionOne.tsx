@@ -1,4 +1,4 @@
-import { Link } from "react-router"
+import { Link } from "react-router-dom"
 import { getTrackedPath } from "../../../shared/tracking"
 import styles from "./SectionOne.module.css"
 
