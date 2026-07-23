@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router"
 import logo  from "../../assets/Logo_start.svg"
 import { getTrackedPath } from "../../shared/tracking"
 import styles from "./Header.module.css"
