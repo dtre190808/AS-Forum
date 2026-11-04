@@ -37,10 +37,6 @@ function PrivacyPolicyPage() {
               https://alabuga.ru
             </a>
             ,{" "}
-            <a href="https://sezalabuga.ru" target="_blank" rel="noopener noreferrer">
-              https://sezalabuga.ru
-            </a>
-            ,{" "}
             <a href="https://forum-start.alabuga.ru/" target="_blank" rel="noopener noreferrer">
               https://forum-start.alabuga.ru/
             </a>{" "}
