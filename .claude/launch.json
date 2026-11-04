@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "/Users/danilerkenov/Desktop/AS-Forum/node_modules/.bin/vite",
+      "runtimeArgs": ["--port", "5173", "--strictPort"],
+      "port": 5173
+    }
+  ]
+}
